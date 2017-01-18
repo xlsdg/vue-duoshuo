@@ -66,7 +66,7 @@
           const ds = document.createElement('script');
           ds.type = 'text/javascript';
           ds.async = true;
-          ds.charset = 'UTF-8';
+          ds.charset = 'utf-8';
           if (ds.readyState) {
             ds.onreadystatechange = function() {
               if (ds.readyState === 'loaded' || ds.readyState === 'complete') {
@@ -80,10 +80,12 @@
               that.ready();
             };
           }
-          ds.src = `//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
+          ds.src = `${document.location.protocol}//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
           that.dom = ds;
           const s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(ds, s);
+        } else {
+          that.ready();
         }
       },
       ready() {
@@ -91,7 +93,7 @@
         that.$nextTick(function() {
           if (window.DUOSHUO && window.DUOSHUO.EmbedThread) {
             that.$emit('ready', null);
-            window.DUOSHUO.EmbedThread(that.$el);
+            // window.DUOSHUO.EmbedThread(that.$el);
           }
         });
       },
@@ -115,9 +117,9 @@
       // console.log('beforeMount');
     },
     mounted() {
-      const that = this;
+      // const that = this;
       // console.log('mounted');
-      that.ready();
+      // that.ready();
     },
     beforeUpdate() {
       // const that = this;
