@@ -71,13 +71,13 @@
             ds.onreadystatechange = function() {
               if (ds.readyState === 'loaded' || ds.readyState === 'complete') {
                 ds.onreadystatechange = null;
-                that.ready();
+                that.ready(true);
               }
             };
           } else {
             ds.onload = function() {
               ds.onload = null;
-              that.ready();
+              that.ready(true);
             };
           }
           ds.src = `${document.location.protocol}//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
@@ -85,15 +85,17 @@
           const s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(ds, s);
         } else {
-          that.ready();
+          that.ready(false);
         }
       },
-      ready() {
+      ready(isMounted) {
         const that = this;
         that.$nextTick(function() {
           if (window.DUOSHUO && window.DUOSHUO.EmbedThread) {
             that.$emit('ready', null);
-            // window.DUOSHUO.EmbedThread(that.$el);
+            if (isMounted === false) {
+              window.DUOSHUO.EmbedThread(that.$el);
+            }
           }
         });
       },
