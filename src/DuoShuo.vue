@@ -71,13 +71,13 @@
             ds.onreadystatechange = function() {
               if (ds.readyState === 'loaded' || ds.readyState === 'complete') {
                 ds.onreadystatechange = null;
-                that.ready(true);
+                that.ready(false);
               }
             };
           } else {
             ds.onload = function() {
               ds.onload = null;
-              that.ready(true);
+              that.ready(false);
             };
           }
           ds.src = `${document.location.protocol}//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
@@ -85,15 +85,15 @@
           const s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(ds, s);
         } else {
-          that.ready(false);
+          that.ready(true);
         }
       },
-      ready(isMounted) {
+      ready(isInjected) {
         const that = this;
         that.$nextTick(function() {
           if (window.DUOSHUO && window.DUOSHUO.EmbedThread) {
             that.$emit('ready', null);
-            if (isMounted === false) {
+            if (isInjected !== false) {
               window.DUOSHUO.EmbedThread(that.$el);
             }
           }
@@ -121,15 +121,16 @@
     mounted() {
       // const that = this;
       // console.log('mounted');
-      // that.ready();
+      // that.ready(true);
     },
     beforeUpdate() {
       // const that = this;
       // console.log('beforeUpdate');
     },
     updated() {
-      // const that = this;
+      const that = this;
       // console.log('updated');
+      that.ready(true);
     },
     activated() {
       // const that = this;
