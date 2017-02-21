@@ -1,7 +1,7 @@
 {
   "name": "vue-duoshuo",
   "title": "vue-duoshuo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue.js(v2.x+) component wrap for DuoShuo.js",
   "author": "xLsDg <xlsdg@qq.com> (https://blog.xlsdg.org/)",
   "homepage": "https://github.com/xlsdg/vue-duoshuo",
