@@ -1,14 +1,11 @@
 <template>
-  <div class="ds-thread"
-    :data-thread-key="thread"
-    :data-title="title"
-    :data-url="url"
-    :data-author-key="author"
+  <div class="i-duo-shuo"
+    :key="thread"
   ></div>
 </template>
 
 <style scoped>
-  .ds-thread {
+  .i-duo-shuo {
     width: 100%;
     height: 100%;
   }
@@ -26,24 +23,31 @@
         type: String,
         required: true
       },
-      url: {
+      image: {
         type: String,
-        required: false,
-        default: window.location.href
-      },
-      title: {
-        type: String,
-        required: false,
-        default: window.document.title
+        required: false
       },
       author: {
+        type: String,
+        required: false
+      },
+      position: {
+        type: String,
+        required: false
+      },
+      limit: {
+        type: Number,
+        required: false
+      },
+      order: {
         type: String,
         required: false
       }
     },
     data() {
       return {
-        dom: null
+        dom: null,
+        script: null
       };
     },
     computed: {
@@ -62,47 +66,63 @@
           window.duoshuoQuery.short_name = that.domain;
         }
 
-        if (!window.DUOSHUO) {
-          const ds = document.createElement('script');
-          ds.type = 'text/javascript';
-          ds.async = true;
-          ds.charset = 'utf-8';
-          if (ds.readyState) {
-            ds.onreadystatechange = function() {
-              if (ds.readyState === 'loaded' || ds.readyState === 'complete') {
-                ds.onreadystatechange = null;
-                that.ready(false);
-              }
-            };
-          } else {
-            ds.onload = function() {
-              ds.onload = null;
-              that.ready(false);
-            };
-          }
-          ds.src = `${document.location.protocol}//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
-          that.dom = ds;
-          const s = document.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(ds, s);
-        } else {
-          that.ready(true);
+        if (window.DUOSHUO) {
+          return that.ready(true);
         }
-      },
-      ready(isInjected) {
-        const that = this;
-        that.$nextTick(function() {
-          if (window.DUOSHUO && window.DUOSHUO.EmbedThread) {
-            that.$emit('ready', null);
-            if (isInjected !== false) {
-              window.DUOSHUO.EmbedThread(that.$el);
+
+        const ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.charset = 'utf-8';
+        if (ds.readyState) {
+          ds.onreadystatechange = function() {
+            if (ds.readyState === 'loaded' || ds.readyState === 'complete') {
+              ds.onreadystatechange = null;
+              that.ready(false);
             }
+          };
+        } else {
+          ds.onload = function() {
+            ds.onload = null;
+            that.ready(false);
+          };
+        }
+        ds.src = `${document.location.protocol}//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
+        that.script = ds;
+        const s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ds, s);
+      },
+      ready(isForceUpdate) {
+        const that = this;
+        if (window.DUOSHUO && window.DUOSHUO.EmbedThread) {
+          if (that.dom) {
+            that.dom.parentNode.removeChild(that.dom);
+            that.dom = null;
           }
-        });
+          that.$nextTick(function() {
+            const container = window.document.createElement('div');
+            container.className = 'ds-thread';
+            container.setAttribute('data-thread-key', that.thread);
+            container.setAttribute('data-title', window.document.title);
+            container.setAttribute('data-url', window.location.href);
+            that.author && container.setAttribute('data-author-key', that.author);
+            that.image && container.setAttribute('data-image', that.image);
+            that.position && container.setAttribute('data-form-position', that.position);
+            that.limit && container.setAttribute('data-limit', that.limit);
+            that.order && container.setAttribute('data-order', that.order);
+            if (isForceUpdate) {
+              window.DUOSHUO.EmbedThread(container);
+            }
+            that.$el.append(container);
+            that.dom = container;
+            that.$emit('ready', null);
+          });
+        }
       },
       destroy() {
         const that = this;
-        // that.dom.parentNode.removeChild(that.dom);
-        that.dom = null;
+        // that.script.parentNode.removeChild(that.script);
+        that.script = null;
       }
     },
     beforeCreate() {
@@ -121,7 +141,6 @@
     mounted() {
       // const that = this;
       // console.log('mounted');
-      // that.ready(true);
     },
     beforeUpdate() {
       // const that = this;

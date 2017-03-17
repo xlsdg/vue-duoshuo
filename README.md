@@ -52,21 +52,29 @@ $ npm install --save vue-duoshuo
 
 * `thread` **[String]**
 
-  Required; 文章 ID
+  Required; 文章在原站点中的 ID 或其他唯一标识
 
-* `url` **[String]**
+* `image` **[String]**
 
-  Optional; `window.location.href` by defualt.
-
-* `title` **[String]**
-
-  Optional; `window.document.title` by defualt.
+  Optional; 文章图片地址，将用于转发时的附图
 
 * `author` **[String]**
 
-  Optional; 作者用户 ID
+  Optional; 作者在本站中的 ID
 
-See more [DuoShuo](http://dev.duoshuo.com/docs/50b344447f32d30066000147)
+* `position` **[String]**
+
+  Optional; 该页面中评论框的位置，取值 `top` (评论框在顶端显示)，`bottom` (评论框在底端显示)
+
+* `limit` **[Number]**
+
+  Optional; 单页显示评论数，取值范围: 1～200
+
+* `order` **[String]**
+
+  Optional; 排序方式，取值：`asc` (从旧到新)，`desc` (从新到旧)
+
+See more [DuoShuo](http://dev.duoshuo.com/docs/5003ecd94cab3e7250000008)
 
 
 ## Development

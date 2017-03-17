@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack:///webpack:///src/DuoShuo.vue"],"names":[],"mappings":"AACA,4BACE,WACA,WAAa","file":"css/app.css","sourcesContent":["\n.ds-thread[data-v-4c14b525] {\n  width: 100%;\n  height: 100%;\n}\n\n\n\n// WEBPACK FOOTER //\n// webpack:///src/DuoShuo.vue"],"sourceRoot":""}
+{"version":3,"sources":["webpack:///./src/DuoShuo.vue"],"names":[],"mappings":"AACA,6BACE,WACA,WAAa","file":"css/app.css","sourcesContent":["\n.i-duo-shuo[data-v-c95dea8a] {\n  width: 100%;\n  height: 100%;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/DuoShuo.vue"],"sourceRoot":""}
