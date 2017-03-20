@@ -88,9 +88,9 @@
           };
         }
         ds.src = `${document.location.protocol}//static.duoshuo.com/embed.js?_t=${(new Date()).getTime()}`;
-        that.script = ds;
         const s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ds, s);
+        that.script = ds;
       },
       ready(isForceUpdate) {
         const that = this;
@@ -130,17 +130,17 @@
       // console.log('beforeCreate');
     },
     created() {
-      const that = this;
+      // const that = this;
       // console.log('created');
-      that.init();
     },
     beforeMount() {
       // const that = this;
       // console.log('beforeMount');
     },
     mounted() {
-      // const that = this;
+      const that = this;
       // console.log('mounted');
+      that.init();
     },
     beforeUpdate() {
       // const that = this;
