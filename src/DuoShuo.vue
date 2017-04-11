@@ -125,48 +125,48 @@
         that.script = null;
       }
     },
-    beforeCreate() {
+    // beforeCreate() {
       // const that = this;
       // console.log('beforeCreate');
-    },
-    created() {
+    // },
+    // created() {
       // const that = this;
       // console.log('created');
-    },
-    beforeMount() {
+    // },
+    // beforeMount() {
       // const that = this;
       // console.log('beforeMount');
-    },
+    // },
     mounted() {
       const that = this;
       // console.log('mounted');
       that.init();
     },
-    beforeUpdate() {
+    // beforeUpdate() {
       // const that = this;
       // console.log('beforeUpdate');
-    },
+    // },
     updated() {
       const that = this;
       // console.log('updated');
       that.ready(true);
     },
-    activated() {
+    // activated() {
       // const that = this;
       // console.log('activated');
-    },
-    deactivated() {
+    // },
+    // deactivated() {
       // const that = this;
       // console.log('deactivated');
-    },
+    // },
     beforeDestroy() {
       const that = this;
       // console.log('beforeDestroy');
       that.destroy();
-    },
-    destroyed() {
+    }
+    // destroyed() {
       // const that = this;
       // console.log('destroyed');
-    }
+    // }
   };
 </script>
